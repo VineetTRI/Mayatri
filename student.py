@@ -266,7 +266,7 @@ class Student:
         search_btn = Button(Search_frame,text="Search",width=12,font=("times new roman",12,"bold"),bg="blue",fg="white")
         search_btn.grid(row=0,column=3,padx=4)
 
-        showAll_btn = Button(Search_frame,text="Show All",width=12,font=("times new roman",12,"bold"),bg="blue",fg="white")
+        showAll_btn = Button(Search_frame,text="Show All",width=12,font=("times new roman",12,"bold"),bg="blue",fg="white",command=self.fetch_data)
         showAll_btn.grid(row=0,column=4,padx=4)
 
         #Table Frame
@@ -375,8 +375,8 @@ class Student:
 
         self.var_dep.set(data[0])
         self.var_course.set(data[1]),
-        self.var_year.get(data[2]),
-        self.var_semester.get(data[3]),
+        self.var_year.set(data[2]),
+        self.var_semester.set(data[3]),
         self.var_std_id.set(data[4]),
         self.var_std_name.set(data[5]),
         self.var_div.set(data[6]),
@@ -400,7 +400,7 @@ class Student:
                 if(Update>0):
                     conn = mysql.connector.connect(host="localhost",port="3306",user="root",password="Vineet@888",database="face_recognizer")
                     my_cursor = conn.cursor()
-                    my_cursor.execute("update student set Dep=%s,Course=%s,Year=%s,Semester=%s,Name=%s,Division=%s,Roll=%s,Gender=%s,Dob=%s,Email=%s,Phone=%s,Address=%s,Teacher=%s,PhotoSampleStatus=%s,where Student_ID=%s",(
+                    my_cursor.execute("update student set Dep=%s,Course=%s,Year=%s,Semester=%s,Name=%s,Division=%s,Roll=%s,Gender=%s,Dob=%s,Email=%s,Phone=%s,Address=%s,Teacher=%s,PhotoSampleStatus=%s where Student_ID=%s",(
                     self.var_dep.get(),
                     self.var_course.get(),
                     self.var_year.get(),
@@ -439,7 +439,7 @@ class Student:
                 if delete>0:
                     conn = mysql.connector.connect(host="localhost",port="3306",user="root",password="Vineet@888",database="face_recognizer")
                     my_cursor = conn.cursor()    
-                    sql = "delete from Student_ID=%s"    
+                    sql = "delete from student where Student_ID=%s"    
                     val = (self.var_std_id.get(),)
                     my_cursor.execute(sql,val)
                 else:
@@ -458,8 +458,8 @@ class Student:
     def reset_data(self):
         self.var_dep.set("Select Department")
         self.var_course.set("Select Course"),
-        self.var_year.get("Select Year"),
-        self.var_semester.get("Select Semester"),
+        self.var_year.set("Select Year"),
+        self.var_semester.set("Select Semester"),
         self.var_std_id.set(""),
         self.var_std_name.set(""),
         self.var_div.set("Select Division"),
